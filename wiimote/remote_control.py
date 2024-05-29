@@ -17,6 +17,7 @@ green.on()
 wii.rpt_mode = cwiid.RPT_BTN | cwiid.RPT_ACC
 
 mode = 'BTN'
+last_button = None
 
 while True:
 	buttons = wii.state["buttons"]
@@ -42,19 +43,24 @@ while True:
 		print(x, y)
 		continue
 
-	if (buttons & cwiid.BTN_LEFT):
+	if (buttons & cwiid.BTN_LEFT and last_button != cwiid.BTN_LEFT):
 		print('Left')
+		last_button = cwiid.BTN_LEFT
 		robot.left()
-	if (buttons & cwiid.BTN_RIGHT):
+	if (buttons & cwiid.BTN_RIGHT and last_button != cwiid.BTN_RIGHT):
 		print('Right')
+		last_button = cwiid.BTN_RIGHT
 		robot.right()
-	if (buttons & cwiid.BTN_UP):
+	if (buttons & cwiid.BTN_UP and last_button != cwiid.BTN_UP):
 		print('Forward')
+		last_button = cwiid.BTN_UP
 		robot.forward()
-	if (buttons & cwiid.BTN_DOWN):
+	if (buttons & cwiid.BTN_DOWN and last_button != cwiid.BTN_DOWN):
 		print('Backward')
+		last_button = cwiid.BTN_DOWN
 		robot.backward()
-	if (buttons & cwiid.BTN_B):
+	if (buttons & cwiid.BTN_B and last_button != cwiid.BTN_B):
 		print('B')
+		last_button = cwiid.BTN_B
 		robot.stop()
 	
